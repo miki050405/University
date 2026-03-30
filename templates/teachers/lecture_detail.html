@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/teacher_dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <div class="section-title">{{ lecture.subject.name }}</div>
+    <div class="section-subtitle">
+        {{ lecture.get_type_display }} · {{ lecture.term.name }}
+    </div>
+
+    {% if streams %}
+        <div class="journal-list">
+            {% for stream in streams %}
+                <a href="{% url 'teacher_gradebook' stream.id %}" class="journal-item">
+                    <div class="journal-item-title">
+                        {{ stream.get_subgroup_display }}
+                    </div>
+
+                    <div class="journal-item-meta">
+                        {% for group in stream.group.all %}
+                            {{ group.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="journal-item-meta">
+                        Статус: {{ stream.get_status_display }}
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-card">
+            Для этой дисциплины пока нет потоков
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

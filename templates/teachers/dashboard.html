@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/teacher_dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% if schedule_rows %}
+<div class="schedule-grid-card">
+    <table class="schedule-grid-table">
+        <thead>
+            <tr>
+                <th class="time-col">Время</th>
+                {% for day_name in day_headers %}
+                    <th>{{ day_name }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for row in schedule_rows %}
+                <tr>
+                    <td class="time-cell">
+                        <div class="pair-time">
+                            {{ row.timeslot.start_time|time:"H:i" }} - {{ row.timeslot.end_time|time:"H:i" }}
+                        </div>
+                    </td>
+
+                    {% for cell in row.cells %}
+                        <td class="lesson-cell">
+                            {% if cell.lessons %}
+                                {% for lesson in cell.lessons %}
+                                    <div class="lesson-block">
+                                        <div class="lesson-subject">
+                                            {{ lesson.subject }}
+                                        </div>
+
+                                        <div class="lesson-meta">
+                                            {{ lesson.type_short }}
+                                            {% if lesson.week_short %}
+                                                · {{ lesson.week_short }}
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="lesson-room">
+                                            {{ lesson.room }}
+                                        </div>
+
+                                        <div class="lesson-teacher">
+                                            {{ lesson.groups }}
+                                            {% if lesson.subgroup != "Вся группа" %}
+                                                · {{ lesson.subgroup }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <span class="empty-cell">—</span>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="empty-card">
+    Расписание пока не назначено
+</div>
+{% endif %}
+
+{% endblock %}

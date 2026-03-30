@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/chair_groups.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <div class="section-title">Группы кафедры</div>
+
+    <form method="get" class="filter-form">
+        <label for="specialty" class="filter-label">Направление:</label>
+        <select name="specialty" id="specialty" class="filter-select" onchange="this.form.submit()">
+            <option value="">Все направления</option>
+            {% for specialty in specialties %}
+                <option value="{{ specialty.id }}" {% if selected_specialty and selected_specialty.id == specialty.id %}selected{% endif %}>
+                    {{ specialty.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    {% if groups %}
+        <div class="groups-list">
+            {% for group in groups %}
+                <a href="{% url 'chair_group_students' group.id %}" class="group-item">
+                    <div class="group-item-title">{{ group.name }}</div>
+                    <div class="group-item-meta">
+                        Направление: {{ group.specialty.name }}
+                    </div>
+                    <div class="group-item-meta">
+                        Факультет: {{ group.specialty.faculty.name }}
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-card">
+            Группы не найдены
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

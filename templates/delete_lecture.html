@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Удаление занятия{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/chair.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-card">
+    <h1 class="page-title">Удаление занятия</h1>
+
+    <p class="delete-text">
+        Вы уверены, что хотите удалить занятие
+        <strong>{{ lecture.subject }}</strong>
+        ({{ lecture.get_type_display }})?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="delete-btn">Удалить</button>
+        <a href="{% url 'lecture_list' %}" class="edit-btn">Отмена</a>
+    </form>
+</div>
+{% endblock %}

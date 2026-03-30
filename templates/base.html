@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}University{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            University
+        </div>
+
+        <nav class="menu">
+
+            {% if request.user.userprofile.role == "student" %}
+                <a href="{% url 'student_dashboard' %}">Расписание</a>
+                <a href="{% url 'student_subjects' %}">Дисциплины</a>
+                <a href="{% url 'student_registration_list' %}">Регистрация на дисциплины</a>
+                <a href="{% url 'student_grades' %}">Оценки</a>
+            {% endif %}
+
+            {% if request.user.userprofile.role == "chair" %}
+                <a href="{% url 'subject_list' %}">Дисциплины</a>
+                <a href="{% url 'lecture_list' %}">Занятия</a>
+                <a href="{% url 'stream_list' %}">Потоки</a>
+                <a href="{% url 'chair_groups' %}">Группы / студенты</a>
+                <!-- <a href="#">Расписание</a> -->
+            {% endif %}
+
+            {% if request.user.is_authenticated and request.user.userprofile.role == "teacher" %}
+                <a href="{% url 'teacher_dashboard' %}">Расписание</a>
+                <a href="{% url 'teacher_journal_list' %}">Журнал</a>
+            {% endif %}
+
+            <!-- <a href="#">Личная информация</a> -->
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="{% url 'logout' %}" class="logout-btn">Выйти</a>
+        </div>
+
+    </aside>
+
+
+    <!-- CONTENT -->
+    <main class="content">
+
+        <!-- USER HEADER -->
+        <div class="user-header">
+
+            <div class="user-name">
+                {{ request.user.first_name }} {{ request.user.last_name }}
+            </div>
+
+            <div class="user-meta">
+
+                {% if request.user.userprofile.role == "student" and student.group %}
+                    {{ student.group.name }}
+                {% elif request.user.userprofile.role == "teacher" and teacher.position %}
+                    {{ teacher.position.name }}
+                {% endif %}
+
+            </div>
+
+        </div>
+        {% if messages %}
+        <div class="toast-container">
+            {% for message in messages %}
+                <div class="toast-message toast-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const messages = document.querySelectorAll(".toast-message");
+
+    messages.forEach(function(message) {
+
+        setTimeout(() => {
+            message.style.opacity = "0";
+            message.style.transform = "translateX(40px)";
+
+            setTimeout(() => {
+                message.remove();
+            }, 300);
+
+        }, 3000); // 3 секунды
+    });
+
+});
+</script>
+</body>
+</html>

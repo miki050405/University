@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Удаление потока{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/chair.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-card">
+    <h1 class="page-title">Удаление потока</h1>
+
+    <p class="delete-text">
+        Вы уверены, что хотите удалить поток для занятия
+        <strong>{{ stream.lecture.subject }}</strong>?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="actions">
+            <button type="submit" class="delete-btn">Удалить</button>
+            <a href="{% url 'stream_list' %}" class="edit-btn">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

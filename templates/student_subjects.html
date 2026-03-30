@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/student_subjects.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% if subjects_list %}
+
+<div class="subjects-card">
+    <table class="subjects-table">
+        <thead>
+            <tr>
+                <th>Дисциплина</th>
+                <th>Виды занятий</th>
+                <th>Преподаватели</th>
+                <th>Семестр</th>
+                <th>Кредиты</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in subjects_list %}
+                <tr>
+                    <td class="subject-name">{{ item.subject_name }}</td>
+
+                    <td>
+                        {% for lesson_type in item.types %}
+                            <span class="type-badge">{{ lesson_type }}</span>
+                        {% endfor %}
+                    </td>
+
+                    <td>
+                        {% if item.teachers_by_type %}
+                            {% for teacher_item in item.teachers_by_type %}
+                                <div class="teacher-type-line">
+                                    <span class="teacher-type">{{ teacher_item.type }}</span>
+                                    <span class="teacher-separator">—</span>
+                                    <span class="teacher-name">{{ teacher_item.teacher }}</span>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+
+                    <td>{{ item.term }}</td>
+
+                    <td>
+                        {% if item.credits != None %}
+                            {{ item.credits }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% else %}
+
+<div class="empty">
+    Вы пока не зарегистрированы ни на одну дисциплину
+</div>
+
+{% endif %}
+
+{% endblock %}

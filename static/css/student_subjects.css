@@ -1,0 +1,76 @@
+.subjects-card {
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ececec;
+}
+
+.subjects-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.subjects-table thead {
+    background: #fdf3f6;
+}
+
+.subjects-table th,
+.subjects-table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid #eeeeee;
+    text-align: left;
+    vertical-align: top;
+}
+
+.subjects-table th {
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+}
+
+.subjects-table tr:last-child td {
+    border-bottom: none;
+}
+
+.subject-name {
+    font-weight: 700;
+    color: #2f2f2f;
+    min-width: 240px;
+}
+
+.type-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    border-radius: 999px;
+    background: #f2fbf5;
+    border: 1px solid #dcefe4;
+    color: #3e8f67;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.teacher-type-line {
+    margin-bottom: 6px;
+    line-height: 1.45;
+}
+
+.teacher-type-line:last-child {
+    margin-bottom: 0;
+}
+
+.teacher-type {
+    font-weight: 600;
+    color: #c85f81;
+}
+
+.teacher-separator {
+    color: #888;
+    margin: 0 4px;
+}
+
+.teacher-name {
+    color: #4b4b4b;
+}

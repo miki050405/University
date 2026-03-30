@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Моё расписание</h2>
+
+    {% for day_id, day_data in grouped_schedule.items %}
+        <div class="card mt-4 p-3">
+            <h4>{{ day_data.name }}</h4>
+
+            {% if day_data.items %}
+                <table class="table mt-3">
+                    <thead>
+                        <tr>
+                            <th>Пара</th>
+                            <th>Дисциплина</th>
+                            <th>Тип</th>
+                            <th>Группы</th>
+                            <th>Неделя</th>
+                            <th>Аудитория</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in day_data.items %}
+                        <tr>
+                            <td>
+                                {{ item.timeslot.number }}<br>
+                                <small>{{ item.timeslot.start_time }} - {{ item.timeslot.end_time }}</small>
+                            </td>
+                            <td>{{ item.stream.lecture.subject.name }}</td>
+                            <td>{{ item.stream.lecture.get_type_display }}</td>
+                            <td>
+                                {% for group in item.stream.group.all %}
+                                    {{ group.name }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{ item.get_week_type_display }}</td>
+                            <td>{{ item.building }}, {{ item.room }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="text-muted">Занятий нет.</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

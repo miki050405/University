@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/teacher_dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <div class="section-title">Журнал: выберите дисциплину</div>
+
+    {% if lectures %}
+        <div class="journal-list">
+            {% for lecture in lectures %}
+                <a href="{% url 'teacher_journal_streams' lecture.id %}" class="journal-item">
+                    <div class="journal-item-title">
+                        {{ lecture.subject.name }}
+                    </div>
+                    <div class="journal-item-meta">
+                        {{ lecture.get_type_display }} · {{ lecture.term.name }}
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-card">
+            У вас пока нет назначенных дисциплин
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

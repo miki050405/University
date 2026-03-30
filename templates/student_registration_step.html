@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Выбор преподавателя и потока{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/student_registration.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="registration-page">
+
+    <div class="step-topbar">
+        <div>
+            <h1 class="page-title">{{ subject.name }}</h1>
+            <div class="step-meta">
+                <span>{{ lecture_type_display }}</span>
+                <span>{{ credits }} кредит(ов)</span>
+                {% if is_elective %}
+                    <span class="inline-elective-mark">По выбору</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <a href="{% url 'student_registration_list' %}" class="secondary-btn">Назад</a>
+    </div>
+
+    {% if current_enrollment %}
+        <div class="current-choice-box">
+            <div class="current-choice-title">Текущий выбор</div>
+
+            <div class="current-choice-row">
+                <span class="choice-key">Преподаватель:</span>
+                <span class="choice-val">
+                    {% if current_enrollment.stream.lecture.teacher %}
+                        {{ current_enrollment.stream.lecture.teacher.user.get_full_name|default:current_enrollment.stream.lecture.teacher.user.username }}
+                    {% else %}
+                        —
+                    {% endif %}
+                </span>
+            </div>
+
+            <div class="current-choice-row">
+                <span class="choice-key">Поток:</span>
+                <span class="choice-val">
+                    {% for group in current_enrollment.stream.group.all %}
+                        {{ group.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    / {{ current_enrollment.stream.get_subgroup_display }}
+                </span>
+            </div>
+
+            {% if current_enrollment.stream.status != "closed" %}
+                <div class="current-choice-actions">
+                    <a href="{% url 'cancel_registration' current_enrollment.id %}" class="secondary-btn danger-btn">
+                        Удалить регистрацию
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class="selection-box">
+        <div class="selection-title">Шаг 1. Выберите преподавателя</div>
+
+        <form method="get" class="teacher-form">
+            <select name="teacher" class="step-select" onchange="this.form.submit()">
+                <option value="">Выберите преподавателя</option>
+                {% for teacher in teachers %}
+                    <option value="{{ teacher.id }}"
+                        {% if selected_teacher_id == teacher.id|stringformat:"s" %}selected{% endif %}>
+                        {{ teacher.user.get_full_name|default:teacher.user.username }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+
+    {% if selected_teacher_id %}
+        <div class="selection-box">
+            <div class="selection-title">Шаг 2. Выберите поток</div>
+
+            {% if filtered_streams %}
+                <div class="stream-list">
+                    {% for stream in filtered_streams %}
+                        <div class="stream-card">
+                            <div class="stream-card-main">
+                                <div class="stream-teacher">
+                                    {% if stream.lecture.teacher %}
+                                        {{ stream.lecture.teacher.user.get_full_name|default:stream.lecture.teacher.user.username }}
+                                    {% else %}
+                                        —
+                                    {% endif %}
+                                </div>
+
+                                <div class="stream-groups">
+                                    {% for group in stream.group.all %}
+                                        {{ group.name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                    / {{ stream.get_subgroup_display }}
+                                </div>
+
+                                <div class="stream-status">
+                                    Статус: {{ stream.get_status_display }}
+                                </div>
+                            </div>
+
+                            <div class="stream-card-actions">
+                                {% if stream.status == "open" %}
+                                    <a href="{% url 'register_stream' stream.id %}" class="primary-btn">
+                                        Зарегистрироваться
+                                    </a>
+                                {% elif stream.status == "full" %}
+                                    <span class="status-pill full-pill">Заполнено</span>
+                                {% else %}
+                                    <span class="status-pill closed-pill">Регистрация закрыта</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="empty-text">Для выбранного преподавателя потоки не найдены.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

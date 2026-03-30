@@ -1,0 +1,275 @@
+.schedule-grid-card {
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ececec;
+}
+
+.schedule-grid-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+.schedule-grid-table th,
+.schedule-grid-table td {
+    border-right: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+    vertical-align: top;
+}
+
+.schedule-grid-table th:last-child,
+.schedule-grid-table td:last-child {
+    border-right: none;
+}
+
+.schedule-grid-table tr:last-child td {
+    border-bottom: none;
+}
+
+.schedule-grid-table th {
+    background: #fdf3f6;
+    padding: 16px 10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+}
+
+.time-col {
+    width: 150px;
+    background: #f7fbf8;
+}
+
+.time-cell {
+    background: #fafdfb;
+    padding: 16px 12px;
+}
+
+.pair-time {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.35;
+}
+
+.lesson-cell {
+    padding: 12px;
+    min-height: 140px;
+    background: #ffffff;
+}
+
+.lesson-block {
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #e9e9e9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.lesson-block:last-child {
+    margin-bottom: 0;
+}
+
+.lesson-cell .lesson-block:nth-child(1) {
+    background: #f9fcfa;
+    border-color: #dfeee5;
+}
+
+.lesson-cell .lesson-block:nth-child(2) {
+    background: #fff7fa;
+    border-color: #f3d9e2;
+}
+
+.lesson-cell .lesson-block:nth-child(3) {
+    background: #f8f7ff;
+    border-color: #e2dff5;
+}
+
+.lesson-cell .lesson-block:nth-child(4) {
+    background: #fffaf2;
+    border-color: #f4e4c6;
+}
+
+.lesson-subject {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.35;
+    margin-bottom: 7px;
+    color: #2f2f2f;
+}
+
+.lesson-meta {
+    font-size: 13px;
+    color: #c85f81;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.lesson-room,
+.lesson-teacher {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+    margin-bottom: 3px;
+}
+
+.lesson-teacher {
+    color: #4f4f4f;
+    font-weight: 500;
+}
+
+.empty-cell {
+    color: #c4c4c4;
+    font-size: 22px;
+    display: inline-block;
+    padding-top: 16px;
+}
+
+.schedule-grid-table td.lesson-cell:hover {
+    background: #fcfcfc;
+}
+
+.content-card {
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ececec;
+    overflow: hidden;
+}
+
+.section-title {
+    padding: 22px 24px 8px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #2f2f2f;
+}
+
+.section-subtitle {
+    padding: 0 24px 8px;
+    color: #777;
+    font-size: 14px;
+}
+
+.journal-list {
+    padding: 18px 24px 24px;
+    display: grid;
+    gap: 14px;
+}
+
+.journal-item {
+    display: block;
+    text-decoration: none;
+    background: #fcfcfc;
+    border: 1px solid #ececec;
+    border-radius: 14px;
+    padding: 16px 18px;
+    transition: 0.2s ease;
+}
+
+.journal-item:hover {
+    background: #faf7f8;
+    border-color: #e7d9df;
+}
+
+.journal-item-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #2f2f2f;
+    margin-bottom: 5px;
+}
+
+.journal-item-meta {
+    font-size: 13px;
+    color: #777;
+    line-height: 1.4;
+}
+
+.gradebook-form {
+    padding: 18px 24px 24px;
+}
+
+.gradebook-table-wrap {
+    overflow-x: auto;
+}
+
+.gradebook-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+.gradebook-table th,
+.gradebook-table td {
+    border: 1px solid #ececec;
+    padding: 12px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.gradebook-table th {
+    background: #fdf3f6;
+    font-weight: 700;
+    color: #333;
+}
+
+.gradebook-table td {
+    background: #fff;
+}
+
+.grade-input {
+    width: 80px;
+    padding: 8px 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+}
+
+.grade-input:focus {
+    border-color: #d48aa3;
+}
+
+.grade-input:disabled {
+    background: #f4f4f4;
+    color: #9a9a9a;
+    cursor: not-allowed;
+}
+
+.final-grade-cell {
+    font-weight: 700;
+    color: #2f2f2f;
+}
+
+.gradebook-actions {
+    margin-top: 18px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.save-btn {
+    background: #d46f8c;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 11px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.save-btn:hover {
+    background: #c55f7c;
+}
+
+.empty-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ececec;
+    color: #777;
+    font-size: 15px;
+}

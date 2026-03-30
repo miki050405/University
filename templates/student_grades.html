@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/student_grades.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="content-card">
+    <div class="section-title">Оценки</div>
+
+    {% if subjects_list %}
+        <div class="grades-list">
+            {% for item in subjects_list %}
+                <a href="{% url 'student_grades' %}?subject={{ item.subject_id }}&term={{ item.term_id }}" class="grades-item">
+                    <div class="grades-item-title">{{ item.subject_name }}</div>
+
+                    <div class="grades-item-meta">
+                        {{ item.term }}
+                    </div>
+
+                    <div class="grades-item-meta">
+                        {% for type in item.types %}
+                            {{ type }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-card">
+            Оценки пока недоступны
+        </div>
+    {% endif %}
+</div>
+
+{% if selected_subject %}
+<div class="modal-overlay">
+    <div class="grades-modal">
+        <a href="{% url 'student_grades' %}" class="modal-close">&times;</a>
+
+        <div class="modal-title">{{ selected_subject.subject_name }}</div>
+        <div class="modal-subtitle">{{ selected_subject.term }}</div>
+
+        <div class="grades-info">
+            {% if selected_grade_control and selected_grade_control.has_module1 %}
+            <div class="grades-row">
+                <span>Модуль 1</span>
+                <strong>
+                    {{ selected_progress.module1|default_if_none:"—" }}
+                </strong>
+            </div>
+            {% endif %}
+
+            <div class="grades-row">
+                <span>Модуль 2</span>
+                <strong>
+                    {% if selected_grade_control and selected_grade_control.has_module2 %}
+                        {{ selected_progress.module2|default_if_none:"—" }}
+                    {% else %}
+                        Не используется
+                    {% endif %}
+                </strong>
+            </div>
+
+            <div class="grades-row">
+                <span>Экзамен</span>
+                <strong>
+                    {% if selected_grade_control and selected_grade_control.has_final_exam %}
+                        {{ selected_progress.final_exam|default_if_none:"—" }}
+                    {% else %}
+                        Не используется
+                    {% endif %}
+                </strong>
+            </div>
+
+            <div class="grades-row">
+                <span>Доп. баллы</span>
+                <strong>
+                    {% if selected_grade_control and selected_grade_control.has_extra %}
+                        {{ selected_progress.extra|default_if_none:"—" }}
+                    {% else %}
+                        Не используется
+                    {% endif %}
+                </strong>
+            </div>
+
+            <div class="grades-row total-row">
+                <span>Итог</span>
+                <strong>{{ selected_progress.final_grade|default_if_none:"—" }}</strong>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

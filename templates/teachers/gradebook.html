@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/teacher_dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <div class="section-title">{{ lecture.subject.name }}</div>
+    <div class="section-subtitle">
+        {{ lecture.get_type_display }} · {{ lecture.term.name }}
+    </div>
+
+    <div class="section-subtitle">
+        Поток:
+        {% for group in stream.group.all %}
+            {{ group.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+        {% if stream.subgroup != 0 %}
+            · {{ stream.get_subgroup_display }}
+        {% endif %}
+    </div>
+
+    <form method="post" class="gradebook-form">
+        {% csrf_token %}
+
+        <div class="gradebook-table-wrap">
+            <table class="gradebook-table">
+                <thead>
+                    <tr>
+                        <th>Студент</th>
+                        <th>Группа</th>
+
+                        {% if grade_control.has_module1 %}
+                            <th>Модуль 1</th>
+                        {% endif %}
+                        {% if grade_control.has_module2 %}
+                            <th>Модуль 2</th>
+                        {% endif %}
+                        {% if grade_control.has_final_exam %}
+                            <th>Экзамен</th>
+                        {% endif %}
+                        {% if grade_control.has_extra %}
+                            <th>Доп.</th>
+                        {% endif %}
+
+                        <th>Итог</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for row in student_rows %}
+                        <tr>
+                            <td>
+                                {% if row.student.user.get_full_name %}
+                                    {{ row.student.user.get_full_name }}
+                                {% else %}
+                                    {{ row.student.user.username }}
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if row.student.group %}
+                                    {{ row.student.group.name }}
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </td>
+
+                            {% if grade_control.has_module1 %}
+                                <td>
+                                    <input
+                                        type="number"
+                                        name="module1_{{ row.student.id }}"
+                                        min="0"
+                                        max="30"
+                                        value="{{ row.progress.module1|default_if_none:'' }}"
+                                        class="grade-input"
+                                        {% if not grade_control.module1_active %}disabled{% endif %}
+                                    >
+                                </td>
+                            {% endif %}
+
+                            {% if grade_control.has_module2 %}
+                                <td>
+                                    <input
+                                        type="number"
+                                        name="module2_{{ row.student.id }}"
+                                        min="0"
+                                        max="30"
+                                        value="{{ row.progress.module2|default_if_none:'' }}"
+                                        class="grade-input"
+                                        {% if not grade_control.module2_active %}disabled{% endif %}
+                                    >
+                                </td>
+                            {% endif %}
+
+                            {% if grade_control.has_final_exam %}
+                                <td>
+                                    <input
+                                        type="number"
+                                        name="final_exam_{{ row.student.id }}"
+                                        min="0"
+                                        max="40"
+                                        value="{{ row.progress.final_exam|default_if_none:'' }}"
+                                        class="grade-input"
+                                        {% if not grade_control.final_exam_active %}disabled{% endif %}
+                                    >
+                                </td>
+                            {% endif %}
+
+                            {% if grade_control.has_extra %}
+                                <td>
+                                    <input
+                                        type="number"
+                                        name="extra_{{ row.student.id }}"
+                                        min="0"
+                                        max="20"
+                                        value="{{ row.progress.extra|default_if_none:'' }}"
+                                        class="grade-input"
+                                        {% if not grade_control.extra_active %}disabled{% endif %}
+                                    >
+                                </td>
+                            {% endif %}
+
+                            <td class="final-grade-cell">
+                                {{ row.progress.final_grade|default_if_none:"—" }}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="10">В этом потоке пока нет студентов</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="gradebook-actions">
+            <button type="submit" class="save-btn">Сохранить оценки</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

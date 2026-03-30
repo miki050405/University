@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Регистрация на дисциплины{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/student_registration.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="registration-page">
+
+    <div class="registration-header">
+        <h1 class="page-title">Регистрация на дисциплины</h1>
+        <p class="page-subtitle">
+            Выберите преподавателя и поток для каждой дисциплины.
+        </p>
+    </div>
+
+    <div class="registration-section">
+        <div class="section-header">
+            <h2 class="section-title">Обязательные дисциплины</h2>
+            <span class="section-badge">Основные</span>
+        </div>
+
+        {% with has_required=False %}
+            {% for option in registration_options %}
+                {% if not option.is_elective %}
+                    {% if not has_required %}{% endif %}
+                    <div class="registration-card">
+                        <div class="registration-card-main">
+                            <div class="registration-subject">
+                                {{ option.subject_name }}
+                            </div>
+
+                            <div class="registration-meta">
+                                <span>{{ option.lecture_type_display }}</span>
+                                <span>{{ option.credits }} кредит(ов)</span>
+                            </div>
+                        </div>
+
+                        <div class="registration-card-choice">
+                            {% if option.enrollment %}
+                                <div class="choice-label">Текущий выбор</div>
+                                <div class="choice-value">
+                                    {% if option.enrollment.stream.lecture.teacher %}
+                                        {{ option.enrollment.stream.lecture.teacher.user.get_full_name|default:option.enrollment.stream.lecture.teacher.user.username }}
+                                    {% else %}
+                                        —
+                                    {% endif %}
+                                </div>
+                                <div class="choice-stream">
+                                    {% for group in option.enrollment.stream.group.all %}
+                                        {{ group.name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                    / {{ option.enrollment.stream.get_subgroup_display }}
+                                </div>
+                            {% else %}
+                                <div class="choice-empty">Пока не выбрано</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="registration-card-actions">
+                            <a href="{% url 'registration_step' option.subject_id option.lecture_type %}" class="primary-btn">
+                                {% if option.enrollment %}Изменить{% else %}Выбрать{% endif %}
+                            </a>
+
+                            {% if option.enrollment and option.enrollment.stream.status != "closed" %}
+                                <a href="{% url 'cancel_registration' option.enrollment.id %}" class="secondary-btn danger-btn">
+                                    Удалить
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% empty %}
+                <p class="empty-text">Доступных дисциплин пока нет.</p>
+            {% endfor %}
+        {% endwith %}
+    </div>
+
+    <div class="registration-section">
+        <div class="section-header">
+            <h2 class="section-title">Дисциплины по выбору</h2>
+            <span class="section-badge elective-badge">По выбору</span>
+        </div>
+
+        {% with has_elective=False %}
+            {% for option in registration_options %}
+                {% if option.is_elective %}
+                    {% if not has_elective %}{% endif %}
+                    <div class="registration-card elective-card">
+                        <div class="registration-card-main">
+                            <div class="registration-subject">
+                                {{ option.subject_name }}
+                            </div>
+
+                            <div class="registration-meta">
+                                <span>{{ option.lecture_type_display }}</span>
+                                <span>{{ option.credits }} кредит(ов)</span>
+                                <span class="inline-elective-mark">По выбору</span>
+                            </div>
+                        </div>
+
+                        <div class="registration-card-choice">
+                            {% if option.enrollment %}
+                                <div class="choice-label">Текущий выбор</div>
+                                <div class="choice-value">
+                                    {% if option.enrollment.stream.lecture.teacher %}
+                                        {{ option.enrollment.stream.lecture.teacher.user.get_full_name|default:option.enrollment.stream.lecture.teacher.user.username }}
+                                    {% else %}
+                                        —
+                                    {% endif %}
+                                </div>
+                                <div class="choice-stream">
+                                    {% for group in option.enrollment.stream.group.all %}
+                                        {{ group.name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                    / {{ option.enrollment.stream.get_subgroup_display }}
+                                </div>
+                            {% else %}
+                                <div class="choice-empty">Пока не выбрано</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="registration-card-actions">
+                            <a href="{% url 'registration_step' option.subject_id option.lecture_type %}" class="primary-btn">
+                                {% if option.enrollment %}Изменить{% else %}Выбрать{% endif %}
+                            </a>
+
+                            {% if option.enrollment and option.enrollment.stream.status != "closed" %}
+                                <a href="{% url 'cancel_registration' option.enrollment.id %}" class="secondary-btn danger-btn">
+                                    Удалить
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% empty %}
+                <p class="empty-text">Дисциплин по выбору пока нет.</p>
+            {% endfor %}
+        {% endwith %}
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,148 @@
+.schedule-grid-card {
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ececec;
+}
+
+.schedule-grid-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+.schedule-grid-table th,
+.schedule-grid-table td {
+    border-right: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+    vertical-align: top;
+}
+
+.schedule-grid-table th:last-child,
+.schedule-grid-table td:last-child {
+    border-right: none;
+}
+
+.schedule-grid-table tr:last-child td {
+    border-bottom: none;
+}
+
+.schedule-grid-table th {
+    background: #fdf3f6;
+    padding: 16px 10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+}
+
+.time-col {
+    width: 150px;
+    background: #f7fbf8;
+}
+
+.time-cell {
+    background: #fafdfb;
+    padding: 16px 12px;
+}
+
+.pair-number {
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.pair-time {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.35;
+}
+
+.lesson-cell {
+    padding: 12px;
+    min-height: 140px;
+    background: #ffffff;
+}
+
+/* Каждое занятие как отдельная карточка */
+.lesson-block {
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #e9e9e9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.lesson-block:last-child {
+    margin-bottom: 0;
+}
+
+/* Разные мягкие цвета, если в одной ячейке несколько занятий */
+.lesson-cell .lesson-block:nth-child(1) {
+    background: #f9fcfa;
+    border-color: #dfeee5;
+}
+
+.lesson-cell .lesson-block:nth-child(2) {
+    background: #fff7fa;
+    border-color: #f3d9e2;
+}
+
+.lesson-cell .lesson-block:nth-child(3) {
+    background: #f8f7ff;
+    border-color: #e2dff5;
+}
+
+.lesson-cell .lesson-block:nth-child(4) {
+    background: #fffaf2;
+    border-color: #f4e4c6;
+}
+
+.lesson-subject {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.35;
+    margin-bottom: 7px;
+    color: #2f2f2f;
+}
+
+.lesson-meta {
+    font-size: 13px;
+    color: #c85f81;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.lesson-room,
+.lesson-teacher {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+    margin-bottom: 3px;
+}
+
+.lesson-teacher {
+    color: #4f4f4f;
+    font-weight: 500;
+}
+
+.empty-cell {
+    color: #c4c4c4;
+    font-size: 22px;
+    display: inline-block;
+    padding-top: 16px;
+}
+
+/* Чуть заметнее вертикальные колонки дней */
+.schedule-grid-table th:not(.time-col),
+.schedule-grid-table td.lesson-cell {
+    position: relative;
+}
+
+/* Hover для читаемости */
+.schedule-grid-table td.lesson-cell:hover {
+    background: #fcfcfc;
+}

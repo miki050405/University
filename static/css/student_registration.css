@@ -1,0 +1,342 @@
+.registration-page {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.registration-header {
+    margin-bottom: 6px;
+}
+
+.page-title {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 700;
+    color: #58786d;
+}
+
+.page-subtitle {
+    margin-top: 8px;
+    font-size: 15px;
+    color: #7b8b84;
+}
+
+.registration-section {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    gap: 12px;
+}
+
+.section-title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #5a7f6f;
+}
+
+.section-badge {
+    background: #e8f4ed;
+    color: #4f7262;
+    border-radius: 999px;
+    padding: 7px 12px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.elective-badge {
+    background: #f8e9ee;
+    color: #a06777;
+}
+
+.registration-card {
+    display: grid;
+    grid-template-columns: 1.4fr 1.2fr auto;
+    gap: 18px;
+    align-items: center;
+    padding: 18px 20px;
+    border: 1px solid #edf3ef;
+    border-radius: 16px;
+    background: #fcfefd;
+    margin-bottom: 14px;
+}
+
+.elective-card {
+    border-color: #f0dbe3;
+    background: #fffafb;
+}
+
+.registration-card:last-child {
+    margin-bottom: 0;
+}
+
+.registration-subject {
+    font-size: 18px;
+    font-weight: 700;
+    color: #475b53;
+    margin-bottom: 6px;
+}
+
+.registration-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    font-size: 14px;
+    color: #7b8b84;
+}
+
+.inline-elective-mark {
+    color: #b06d81;
+    font-weight: 600;
+}
+
+.registration-card-choice {
+    min-width: 0;
+}
+
+.choice-label {
+    font-size: 13px;
+    color: #8a9a93;
+    margin-bottom: 4px;
+}
+
+.choice-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #4d6259;
+}
+
+.choice-stream {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #72817b;
+}
+
+.choice-empty {
+    font-size: 14px;
+    color: #97a49e;
+}
+
+.registration-card-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.primary-btn {
+    background: linear-gradient(90deg, #9fd3b4, #efb7c3);
+    color: white;
+}
+
+.primary-btn:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+}
+
+.secondary-btn {
+    background: #eef4f0;
+    color: #5d7068;
+}
+
+.secondary-btn:hover {
+    background: #e2ece6;
+}
+
+.danger-btn {
+    background: #f9e3e7;
+    color: #a35f70;
+}
+
+.danger-btn:hover {
+    background: #f3d2d9;
+}
+
+.step-topbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.step-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #7b8b84;
+}
+
+.current-choice-box,
+.selection-box {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.current-choice-title,
+.selection-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #5a7f6f;
+    margin-bottom: 14px;
+}
+
+.current-choice-row {
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.choice-key {
+    color: #6b7b75;
+    font-weight: 600;
+}
+
+.choice-val {
+    color: #495d55;
+}
+
+.current-choice-actions {
+    margin-top: 16px;
+}
+
+.teacher-form {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.step-select {
+    width: 100%;
+    max-width: 420px;
+    padding: 12px 14px;
+    border: 1px solid #d8e6de;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s ease;
+    background: #f8fcfa;
+}
+
+.step-select:focus {
+    border-color: #9fd3b4;
+    box-shadow: 0 0 0 3px rgba(159, 211, 180, 0.2);
+    background: #ffffff;
+}
+
+.stream-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.stream-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 20px;
+    border: 1px solid #edf3ef;
+    border-radius: 16px;
+    background: #fcfefd;
+}
+
+.stream-teacher {
+    font-size: 16px;
+    font-weight: 600;
+    color: #4b6158;
+    margin-bottom: 6px;
+}
+
+.stream-groups {
+    font-size: 14px;
+    color: #72817b;
+    margin-bottom: 4px;
+}
+
+.stream-status {
+    font-size: 14px;
+    color: #86958f;
+}
+
+.stream-card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.full-pill {
+    background: #f5ecec;
+    color: #9b5e5e;
+}
+
+.closed-pill {
+    background: #eceff1;
+    color: #66727a;
+}
+
+.empty-text {
+    font-size: 15px;
+    color: #8b9993;
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .registration-card {
+        grid-template-columns: 1fr;
+    }
+
+    .registration-card-actions {
+        justify-content: flex-start;
+    }
+
+    .step-topbar,
+    .stream-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .stream-card-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}

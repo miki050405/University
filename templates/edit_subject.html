@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Редактирование дисциплины{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/chair.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-card">
+    <h1 class="page-title">Редактирование дисциплины</h1>
+
+    <form method="post" class="lecture-form">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="form-group">
+                <label class="form-label" for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="form-error">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="save-btn">Сохранить изменения</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,192 @@
+.page-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    width: 100%;
+}
+
+.page-title {
+    margin: 0 0 24px 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #67b695;
+}
+
+.lecture-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #5f6f68;
+}
+
+.form-input {
+    padding: 12px 14px;
+    border: 1px solid #d8e6de;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s ease;
+    background: #f8fcfa;
+}
+
+.form-input:focus {
+    border-color: #9fd3b4;
+    box-shadow: 0 0 0 3px rgba(159, 211, 180, 0.2);
+    background: #ffffff;
+}
+
+.form-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: #9fd3b4;
+}
+
+.save-btn {
+    margin-top: 10px;
+    align-self: flex-start;
+    background: linear-gradient(90deg, #9fd3b4, #efb7c3);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.save-btn:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+}
+
+.form-error {
+    color: #d93025;
+    font-size: 14px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 35px;
+}
+
+.page-header a {
+    white-space: nowrap;
+}
+
+.lecture-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.lecture-table th,
+.lecture-table td {
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e8efe9;
+    font-size: 14px;
+}
+
+.lecture-table th {
+    background: #f7fbf8;
+    color: #5f6f68;
+    font-weight: 700;
+}
+
+.lecture-table tr:last-child td {
+    border-bottom: none;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.edit-btn,
+.delete-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.edit-btn {
+    background: #e7f4ec;
+    color: #4b6b5d;
+}
+
+.edit-btn:hover {
+    background: #d7ecdf;
+}
+
+.delete-btn {
+    background: #f7d6dc;
+    color: #9b4b5a;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #f2c4cd;
+}
+
+.empty-text {
+    font-size: 15px;
+    color: #7b8b84;
+}
+
+.delete-text {
+    font-size: 16px;
+    color: #4f5f58;
+    margin-bottom: 20px;
+}
+
+.filter-form {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.filter-select {
+    flex: 1;
+    min-width: 320px;
+}
+
+.filter-select-small {
+    width: 200px;
+}
+
+.filter-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+}
+
+.filter-actions .save-btn,
+.filter-actions .edit-btn {
+    margin-top: 0;
+}

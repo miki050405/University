@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Кабинет преподавателя</h1>
+    <p>
+    Добро пожаловать,
+    {{ request.user.get_full_name|default:request.user.username }}
+    </p>
+{% endblock %}

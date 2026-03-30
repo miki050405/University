@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Занятия{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/chair.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-card">
+    <div class="page-header">
+        <h1 class="page-title">Занятия</h1>
+        <a href="{% url 'create_lecture' %}" class="save-btn">+ Создать занятие</a>
+    </div>
+
+    {% if lectures %}
+        <table class="lecture-table">
+            <thead>
+                <tr>
+                    <th>Дисциплина</th>
+                    <th>Преподаватель</th>
+                    <th>Семестр</th>
+                    <th>Тип</th>
+                    <th>Часы</th>
+                    <th>Кредиты</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lecture in lectures %}
+                    <tr>
+                        <td>{{ lecture.subject }}</td>
+                        <td>
+                            {% if lecture.teacher %}
+                                {{ lecture.teacher.user.get_full_name|default:lecture.teacher.user.username }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                        <td>{{ lecture.term }}</td>
+                        <td>{{ lecture.get_type_display }}</td>
+                        <td>{{ lecture.hours }}</td>
+                        <td>{{ lecture.credits }}</td>
+                        <td class="actions">
+                            <a href="{% url 'edit_lecture' lecture.id %}" class="edit-btn">Редактировать</a>
+                            <a href="{% url 'delete_lecture' lecture.id %}" class="delete-btn">Удалить</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="empty-text">Пока занятий нет.</p>
+    {% endif %}
+</div>
+{% endblock %}

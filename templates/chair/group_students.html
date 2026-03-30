@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/chair_groups.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <div class="section-title">Группа {{ group.name }}</div>
+    <div class="section-subtitle">
+        Направление: {{ group.specialty.name }}
+    </div>
+
+    {% if students %}
+        <div class="table-wrap">
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th>ФИО</th>
+                        <th>Курс</th>
+                        <th>Пол</th>
+                        <th>Дата рождения</th>
+                        <th>Телефон</th>
+                        <th>Форма обучения</th>
+                        <th>Национальность</th>
+                        <th>Регион</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                        <tr>
+                            <td>
+                                {% if student.user.get_full_name %}
+                                    {{ student.user.get_full_name }}
+                                {% else %}
+                                    {{ student.user.username }}
+                                {% endif %}
+                            </td>
+                            <td>{{ student.course }}</td>
+                            <td>{{ student.get_gender_display }}</td>
+                            <td>{{ student.date_of_birth|date:"d.m.Y" }}</td>
+                            <td>{{ student.phone|default:"—" }}</td>
+                            <td>
+                                {% if student.study_form %}
+                                    {{ student.study_form.name }}
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if student.nationality %}
+                                    {{ student.nationality.name }}
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if student.region %}
+                                    {{ student.region.name }}
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-card">
+            В этой группе пока нет студентов
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Удаление дисциплины{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/chair.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-card">
+    <h1 class="page-title">Удаление дисциплины</h1>
+
+    <p class="delete-text">
+        Вы уверены, что хотите удалить дисциплину
+        <strong>{{ subject.name }}</strong>?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="actions">
+            <button type="submit" class="delete-btn">Удалить</button>
+            <a href="{% url 'subject_list' %}" class="edit-btn">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
