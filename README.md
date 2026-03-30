@@ -62,6 +62,7 @@
 - JavaScript
 
 ## Запуск проекта
+# для Windows
 git clone <url_репозитория>
 cd university
 python -m venv venv
